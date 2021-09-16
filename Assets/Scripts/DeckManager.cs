@@ -8,7 +8,7 @@ public class DeckManager : MonoBehaviour
     public GameObject _cardPrefab;
 
     public static string[] suits = new string[] { "C", "D", "H", "S" };
-    public static string[] values = new string[] { "A", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
+    public static string[] values = new string[] { "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
 
     public List<string> deck;
 
@@ -68,8 +68,9 @@ public class DeckManager : MonoBehaviour
         {
             GameObject newCard = Instantiate(_cardPrefab, new Vector3(transform.position.x, transform.position.y - yOffset, transform.position.z - zOffset), Quaternion.identity);
             newCard.name = card;
+            newCard.GetComponent<Selectable>().faceUp = true;
 
-            yOffset = yOffset + 0.1f;
+            yOffset = yOffset + 0.3f;
             zOffset = zOffset + 0.03f;
         }
     }
