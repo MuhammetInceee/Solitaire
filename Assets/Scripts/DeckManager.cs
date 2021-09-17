@@ -31,6 +31,7 @@ public class DeckManager : MonoBehaviour
     private int _deckLocation;
     private int _trips;
     private int _tripsRemainder;
+    public int _levelSelector = 3; // Just for now 3, When i create start screen, it change for difficulty.
 
     void Start()
     {
@@ -122,22 +123,22 @@ public class DeckManager : MonoBehaviour
         }
     }
 
-    public void SortDeckIntoTrips() //3 lü açma ayarýný burdan yapcam
+    public void SortDeckIntoTrips()
     {
-        _trips = deck.Count / 3;
-        _tripsRemainder = deck.Count % 3;
+        _trips = deck.Count / _levelSelector;
+        _tripsRemainder = deck.Count % _levelSelector;
         _deckTrips.Clear();
 
         int modifier = 0;
         for (int i = 0; i < _trips; i++)
         {
             List<string> myTrips = new List<string>();
-            for (int j = 0; j < 3; j++)
+            for (int j = 0; j < _levelSelector; j++)
             {
                 myTrips.Add(deck[j + modifier]);
             }
             _deckTrips.Add(myTrips);
-            modifier = modifier + 3;
+            modifier = modifier + _levelSelector;
         }
         if (_tripsRemainder != 0)
         {
