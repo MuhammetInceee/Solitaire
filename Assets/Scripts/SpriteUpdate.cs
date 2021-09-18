@@ -35,11 +35,11 @@ public class SpriteUpdate : MonoBehaviour
 
     void Update()
     {
-        if(_selectable.faceUp == true)
+        if (_selectable.faceUp == true)
         {
             _spriteRenderer.sprite = _cardFace;
         }
-        else if(_selectable.faceUp == false)
+        else if (_selectable.faceUp == false)
         {
             _spriteRenderer.sprite = _cardBack;
         }
@@ -57,6 +57,10 @@ public class SpriteUpdate : MonoBehaviour
             }
             else
             {
+                foreach (GameObject bottom in GameObject.FindGameObjectsWithTag("Bottom"))
+                {
+                    bottom.layer = 2;
+                }
                 _spriteRenderer.color = Color.white;
             }
         }

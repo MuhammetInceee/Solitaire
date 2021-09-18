@@ -91,6 +91,7 @@ public class DeckManager : MonoBehaviour
                 GameObject newCard = Instantiate(_cardPrefab, new Vector3(_bottomPos[i].transform.position.x, _bottomPos[i].transform.position.y - yOffset, _bottomPos[i].transform.position.z), Quaternion.identity, _bottomPos[i].transform);
                 newCard.GetComponent<SpriteRenderer>().sortingOrder = (int)zOffset;
                 newCard.name = card;
+                newCard.GetComponent<Selectable>()._row = i;
                 if (card == _bottoms[i][_bottoms[i].Count - 1])
                 {
                     newCard.GetComponent<Selectable>().faceUp = true;
@@ -181,6 +182,7 @@ public class DeckManager : MonoBehaviour
                 newTopCard.name = card;
                 _tripsOnDisplay.Add(card);
                 newTopCard.GetComponent<Selectable>().faceUp = true;
+                newTopCard.GetComponent<Selectable>()._inDeckPile = true;
             }
             _deckLocation++;
         }
