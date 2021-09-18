@@ -1002,6 +1002,7 @@ MonoBehaviour:
   _tripsOnDisplay: []
   deck: []
   _discardPile: []
+  _levelSelector: 3
 --- !u!114 &690398491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1014,6 +1015,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0d6480fda76fa540b79fed16a2e86ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _slot1: {fileID: 0}
 --- !u!1 &775641603
 GameObject:
   m_ObjectHideFlags: 0

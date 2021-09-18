@@ -170,14 +170,14 @@ public class DeckManager : MonoBehaviour
         {
             _tripsOnDisplay.Clear();
             float xOffset = 0.7f;
-            float zOffset = 1;
+            float zOffset = 2;
 
             foreach (string card in _deckTrips[_deckLocation])
             {
-                GameObject newTopCard = Instantiate(_cardPrefab, new Vector3(_deckButton.transform.position.x + xOffset, _deckButton.transform.position.y, _deckButton.transform.position.z), Quaternion.identity, _deckButton.transform);
+                GameObject newTopCard = Instantiate(_cardPrefab, new Vector3(_deckButton.transform.position.x + xOffset, _deckButton.transform.position.y, _deckButton.transform.position.z + zOffset), Quaternion.identity, _deckButton.transform);
                 newTopCard.GetComponent<SpriteRenderer>().sortingOrder = (int)zOffset;
                 xOffset += 0.2f;
-                zOffset += 1;
+                zOffset += 2;
                 newTopCard.name = card;
                 _tripsOnDisplay.Add(card);
                 newTopCard.GetComponent<Selectable>().faceUp = true;

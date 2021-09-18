@@ -10,11 +10,13 @@ public class SpriteUpdate : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private Selectable _selectable;
     private DeckManager _deckManager;
+    private UserInput _userInput;
 
     void Start()
     {
         List<string> deck = DeckManager.GenerateDeck();
         _deckManager = FindObjectOfType<DeckManager>();
+        _userInput = FindObjectOfType<UserInput>();
 
         int i = 0;
         foreach(string card in deck)
@@ -40,6 +42,23 @@ public class SpriteUpdate : MonoBehaviour
         else if(_selectable.faceUp == false)
         {
             _spriteRenderer.sprite = _cardBack;
+        }
+
+        if (_userInput._slot1)
+        {
+            if (name == _userInput._slot1.name)
+            {
+                foreach(GameObject bottom in GameObject.FindGameObjectsWithTag("Bottom"))
+                {
+                    bottom.layer = 0;
+                }
+
+                _spriteRenderer.color = Color.yellow;
+            }
+            else
+            {
+                _spriteRenderer.color = Color.white;
+            }
         }
     }
 }

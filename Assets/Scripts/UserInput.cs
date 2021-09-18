@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class UserInput : MonoBehaviour
 {
+    public GameObject _slot1;
     private DeckManager _deckManager;
 
     void Start()
     {
         _deckManager = FindObjectOfType<DeckManager>();
+        _slot1 = this.gameObject;
     }
 
     void Update()
@@ -30,7 +32,7 @@ public class UserInput : MonoBehaviour
                 }
                 if (hit.collider.CompareTag("Card"))
                 {
-                    Card();
+                    Card(hit.collider.gameObject);
                 }
                 if (hit.collider.CompareTag("Top"))
                 {
@@ -49,9 +51,18 @@ public class UserInput : MonoBehaviour
         print("Click Deck");
         _deckManager.DealFromDeck();
     }
-    void Card()
+    void Card(GameObject selected)
     {
         print("Click Card");
+
+        if(_slot1 == this.gameObject)
+        {
+            _slot1 = selected;
+        }
+        else if(_slot1 != selected)
+        {
+            _slot1 = selected;
+        }
     }
     void Top()
     {
@@ -60,5 +71,11 @@ public class UserInput : MonoBehaviour
     void Bottom()
     {
         print("Click Bottom");
+    }
+
+    bool Stackable(GameObject selected)
+    {
+        Selectable s1 = _slot1.GetComponent<Selectable>();
+        Selectable s2 = selected.GetComponent<Selectable>();
     }
 }
