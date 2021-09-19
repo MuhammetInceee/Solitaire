@@ -193,6 +193,7 @@ public class DeckManager : MonoBehaviour
         }
         void RestackTopDeck()
         {
+            deck.Clear();
             foreach (string card in _discardPile)
             {
                 deck.Add(card);
