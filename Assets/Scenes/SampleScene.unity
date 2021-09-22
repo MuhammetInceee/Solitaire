@@ -417,7 +417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed7f96637ef34734da30e03d26d940e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _top: 0
+  _top: 1
   _suit: 
   _value: 0
   _row: 1
@@ -1217,7 +1217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed7f96637ef34734da30e03d26d940e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _top: 0
+  _top: 1
   _suit: 
   _value: 0
   _row: 3
@@ -1432,7 +1432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed7f96637ef34734da30e03d26d940e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _top: 0
+  _top: 1
   _suit: 
   _value: 0
   _row: 2
@@ -2313,7 +2313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed7f96637ef34734da30e03d26d940e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _top: 0
+  _top: 1
   _suit: 
   _value: 0
   _row: 0
