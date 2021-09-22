@@ -8,6 +8,9 @@ public class UserInput : MonoBehaviour
     public GameObject _slot1;
     private DeckManager _deckManager;
 
+    private float _timer;
+    private float _doubleClickTime = 0.3f;
+    private int _clickCount = 0;
     void Start()
     {
         _deckManager = FindObjectOfType<DeckManager>();
@@ -16,6 +19,20 @@ public class UserInput : MonoBehaviour
 
     void Update()
     {
+        if (_clickCount == 1)
+            _timer += Time.deltaTime;
+        if(_clickCount == 3)
+        {
+            _timer = 0;
+            _clickCount = 1;
+        }
+        if(_timer > _doubleClickTime)
+        {
+            _timer = 0;
+            _clickCount = 0;
+        }
+
+
         GetMouseClick();
     }
 
@@ -23,6 +40,8 @@ public class UserInput : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            _clickCount++;
+
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -10));
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (hit)
@@ -51,6 +70,7 @@ public class UserInput : MonoBehaviour
     {
         print("Click Deck");
         _deckManager.DealFromDeck();
+        _slot1 = this.gameObject;
     }
     void Card(GameObject selected)
     {
@@ -68,25 +88,47 @@ public class UserInput : MonoBehaviour
         {
             if (!Blocked(selected))
             {
-                _slot1 = selected;
+                if (_slot1 == selected)
+                {
+                    if (DoubleClick())
+                    {
+                        AutoStack(selected);
+                    }
+                }
+                else
+                {
+                    _slot1 = selected;
+                }
             }
         }
+        else
+        {
 
-        if(_slot1 == this.gameObject)
-        {
-            _slot1 = selected;
-        }
-        else if(_slot1 != selected)
-        {
-            if (Stackable(selected))
-            {
-                Stack(selected);
-            }
-            else
+            if (_slot1 == this.gameObject)
             {
                 _slot1 = selected;
             }
+            else if (_slot1 != selected)
+            {
+                if (Stackable(selected))
+                {
+                    Stack(selected);
+                }
+                else
+                {
+                    _slot1 = selected;
+                }
+            }
+
+            else if(_slot1 == selected)
+            {
+                if (DoubleClick())
+                {
+                    AutoStack(selected);
+                }
+            }
         }
+        
     }
     void Top(GameObject selected)
     {
@@ -177,7 +219,7 @@ public class UserInput : MonoBehaviour
             yOffset = 0;
         }
 
-        _slot1.transform.position = new Vector3(selected.transform.position.x, selected.transform.position.y - yOffset, selected.transform.position.z - 1f);
+        _slot1.transform.position = new Vector3(selected.transform.position.x, selected.transform.position.y - yOffset, selected.transform.position.z - 0.01f);
         _slot1.transform.parent = selected.transform;
 
         if (s1._inDeckPile)
@@ -240,6 +282,81 @@ public class UserInput : MonoBehaviour
             {
                 return true;
             }
+        }
+    }
+
+    bool DoubleClick()
+    {
+        if(_timer < _doubleClickTime && _clickCount == 2)
+        {
+            print("Double Click");
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    void AutoStack(GameObject selected)
+    {
+        for(int i = 0; i < _deckManager._topPos.Length; i++)
+        {
+            Selectable stack = _deckManager._topPos[i].GetComponent<Selectable>();
+            if(selected.GetComponent<Selectable>()._value == 1)
+            {
+                if (_deckManager._topPos[i].GetComponent<Selectable>()._value == 0)
+                {
+                    _slot1 = selected;
+                    Stack(stack.gameObject);
+                    break;
+                }
+            }
+            else
+            {
+                if((_deckManager._topPos[i].GetComponent<Selectable>()._suit == _slot1.GetComponent<Selectable>()._suit) && (_deckManager._topPos[i].GetComponent<Selectable>()._value == _slot1.GetComponent<Selectable>()._value - 1))
+                {
+                    if (HasNoChildren(_slot1))
+                    {
+                        _slot1 = selected;
+                        string lastCardName = stack._suit + stack._value.ToString();
+                        if(stack._value == 1)
+                        {
+                            lastCardName = stack._suit + "A";
+                        }
+                        if (stack._value == 11)
+                        {
+                            lastCardName = stack._suit + "J";
+                        }
+                        if (stack._value == 12)
+                        {
+                            lastCardName = stack._suit + "Q";
+                        }
+                        if (stack._value == 13)
+                        {
+                            lastCardName = stack._suit + "K";
+                        }
+                        GameObject lastCard = GameObject.Find(lastCardName);
+                        Stack(lastCard);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    bool HasNoChildren(GameObject card)
+    {
+        int i = 0;
+        foreach (Transform child in card.transform)
+        {
+            i++;
+        }
+        if (i == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

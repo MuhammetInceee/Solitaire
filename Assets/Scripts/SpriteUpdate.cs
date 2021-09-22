@@ -48,22 +48,10 @@ public class SpriteUpdate : MonoBehaviour
         {
             if (name == _userInput._slot1.name)
             {
-                foreach (GameObject bottom in GameObject.FindGameObjectsWithTag("Bottom"))
-                {
-                    if(_selectable._value == 13)
-                    {
-                        bottom.layer = 0;
-                    }
-                }
-
                 _spriteRenderer.color = Color.yellow;
             }
             else
             {
-                foreach (GameObject bottom in GameObject.FindGameObjectsWithTag("Bottom"))
-                {
-                    bottom.layer = 2;
-                }
                 _spriteRenderer.color = Color.white;
             }
         }

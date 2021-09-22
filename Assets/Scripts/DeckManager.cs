@@ -39,12 +39,6 @@ public class DeckManager : MonoBehaviour
         PlayCard();
     }
 
-
-    void Update()
-    {
-
-    }
-
     public void PlayCard()
     {
         deck = GenerateDeck();
@@ -84,20 +78,19 @@ public class DeckManager : MonoBehaviour
         for (int i = 0; i < 7; i++)
         {
             float yOffset = 0;
-            float zOffset = 1;
+            float zOffset = 0.03f;
             foreach (string card in _bottoms[i])
             {
-                yield return new WaitForSeconds(0.01f);
-                GameObject newCard = Instantiate(_cardPrefab, new Vector3(_bottomPos[i].transform.position.x, _bottomPos[i].transform.position.y - yOffset, _bottomPos[i].transform.position.z), Quaternion.identity, _bottomPos[i].transform);
-                newCard.GetComponent<SpriteRenderer>().sortingOrder = (int)zOffset;
+                yield return new WaitForSeconds(0.05f);
+                GameObject newCard = Instantiate(_cardPrefab, new Vector3(_bottomPos[i].transform.position.x, _bottomPos[i].transform.position.y - yOffset, _bottomPos[i].transform.position.z - zOffset), Quaternion.identity, _bottomPos[i].transform);
                 newCard.name = card;
                 newCard.GetComponent<Selectable>()._row = i;
                 if (card == _bottoms[i][_bottoms[i].Count - 1])
                 {
                     newCard.GetComponent<Selectable>().faceUp = true;
                 }
-                zOffset += 1;
                 yOffset += 0.2f;
+                zOffset += 0.03f;
                 _discardPile.Add(card);
             }
         }
@@ -171,14 +164,13 @@ public class DeckManager : MonoBehaviour
         {
             _tripsOnDisplay.Clear();
             float xOffset = 0.7f;
-            float zOffset = 2;
+            float zOffset = -0.2f;
 
             foreach (string card in _deckTrips[_deckLocation])
             {
                 GameObject newTopCard = Instantiate(_cardPrefab, new Vector3(_deckButton.transform.position.x + xOffset, _deckButton.transform.position.y, _deckButton.transform.position.z + zOffset), Quaternion.identity, _deckButton.transform);
-                newTopCard.GetComponent<SpriteRenderer>().sortingOrder = (int)zOffset;
                 xOffset += 0.2f;
-                zOffset += 2;
+                zOffset += -0.2f;
                 newTopCard.name = card;
                 _tripsOnDisplay.Add(card);
                 newTopCard.GetComponent<Selectable>().faceUp = true;
