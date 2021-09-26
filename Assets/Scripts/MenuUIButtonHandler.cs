@@ -10,6 +10,11 @@ public class MenuUIButtonHandler : MonoBehaviour
         DeckManager._levelSelector = 1;
         SceneManager.LoadScene(1);
     }
+    public void Medium()
+    {
+        DeckManager._levelSelector = 2;
+        SceneManager.LoadScene(1);
+    }
     public void Hard()
     {
         DeckManager._levelSelector = 3;
