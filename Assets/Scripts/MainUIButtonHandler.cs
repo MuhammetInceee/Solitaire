@@ -17,6 +17,8 @@ public class MainUIButtonHandler : MonoBehaviour
     {
         _gameEnded.SetActive(false);
         SceneManager.LoadScene(1);
+        Counter._score = 0;
+        Counter._isPaused = false;
     }
 
     public void Pause()
@@ -37,5 +39,10 @@ public class MainUIButtonHandler : MonoBehaviour
         SceneManager.LoadScene(0);
         Counter._score = 0;
         Counter._isPaused = false;
+    }
+    public void GameWon()
+    {
+        Counter._isPaused = true;
+        _gameplayButtons.SetActive(false);
     }
 }
