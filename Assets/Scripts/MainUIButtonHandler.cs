@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class MainUIButtonHandler : MonoBehaviour
 {
     [SerializeField] private GameObject _gameEnded;
+    [SerializeField] private GameObject _pauseScreem;
+    [SerializeField] private GameObject _gameplayButtons;
     public void RestartGame()
     {
         SceneManager.LoadScene(1);
@@ -17,4 +19,21 @@ public class MainUIButtonHandler : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void Pause()
+    {
+        Counter._isPaused = true;
+        _pauseScreem.SetActive(true);
+        _gameplayButtons.SetActive(false);
+    }
+
+    public void Continue()
+    {
+        Counter._isPaused = false;
+        _pauseScreem.SetActive(false);
+        _gameplayButtons.SetActive(true);
+    }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
 }

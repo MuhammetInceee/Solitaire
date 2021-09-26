@@ -9,14 +9,17 @@ public class Counter : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _timerText;
 
     public static int _score;
+    public static bool _isPaused;
     private float _time;
 
     void Update()
     {
         _scoreText.text = "Score : " + _score;
-        
-        
-        _time += Time.deltaTime;
+
+        if (!_isPaused)
+        {
+            _time += Time.deltaTime;
+        }
         DisplayTime(_time);
     }
 

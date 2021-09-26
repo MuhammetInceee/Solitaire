@@ -38,29 +38,32 @@ public class UserInput : MonoBehaviour
 
     void GetMouseClick()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!Counter._isPaused)
         {
-            _clickCount++;
-
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -10));
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            if (hit)
+            if (Input.GetMouseButtonDown(0))
             {
-                if (hit.collider.CompareTag("Deck"))
+                _clickCount++;
+
+                Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -10));
+                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+                if (hit)
                 {
-                    Deck();
-                }
-                if (hit.collider.CompareTag("Card"))
-                {
-                    Card(hit.collider.gameObject);
-                }
-                if (hit.collider.CompareTag("Top"))
-                {
-                    Top(hit.collider.gameObject);
-                }
-                if (hit.collider.CompareTag("Bottom"))
-                {
-                    Bottom(hit.collider.gameObject);
+                    if (hit.collider.CompareTag("Deck"))
+                    {
+                        Deck();
+                    }
+                    if (hit.collider.CompareTag("Card"))
+                    {
+                        Card(hit.collider.gameObject);
+                    }
+                    if (hit.collider.CompareTag("Top"))
+                    {
+                        Top(hit.collider.gameObject);
+                    }
+                    if (hit.collider.CompareTag("Bottom"))
+                    {
+                        Bottom(hit.collider.gameObject);
+                    }
                 }
             }
         }
@@ -210,63 +213,63 @@ public class UserInput : MonoBehaviour
 
     void Stack(GameObject selected)
     {
-        if(DeckManager._levelSelector == 1)
-        {
-            Counter._score += 2;
-        }
-        else if(DeckManager._levelSelector == 2)
-        {
-            Counter._score += 5;
-        }
-        else if(DeckManager._levelSelector == 3)
-        {
-            Counter._score += 10;
-        }
-        Selectable s1 = _slot1.GetComponent<Selectable>();
-        Selectable s2 = selected.GetComponent<Selectable>();
-        float yOffset = 0.3f;
+            if (DeckManager._levelSelector == 1)
+            {
+                Counter._score += 2;
+            }
+            else if (DeckManager._levelSelector == 2)
+            {
+                Counter._score += 5;
+            }
+            else if (DeckManager._levelSelector == 3)
+            {
+                Counter._score += 10;
+            }
+            Selectable s1 = _slot1.GetComponent<Selectable>();
+            Selectable s2 = selected.GetComponent<Selectable>();
+            float yOffset = 0.3f;
 
-        if(s2._top || (!s2._top && s1._value == 13))
-        {
-            yOffset = 0;
-        }
+            if (s2._top || (!s2._top && s1._value == 13))
+            {
+                yOffset = 0;
+            }
 
-        _slot1.transform.position = new Vector3(selected.transform.position.x, selected.transform.position.y - yOffset, selected.transform.position.z - 0.01f);
-        _slot1.transform.parent = selected.transform;
+            _slot1.transform.position = new Vector3(selected.transform.position.x, selected.transform.position.y - yOffset, selected.transform.position.z - 0.01f);
+            _slot1.transform.parent = selected.transform;
 
-        if (s1._inDeckPile)
-        {
-            _deckManager._tripsOnDisplay.Remove(_slot1.name);
-        }
-        else if(s1._top && s2._top && s1._value == 1)
-        {
-            _deckManager._topPos[s1._row].GetComponent<Selectable>()._value = 0;
-            _deckManager._topPos[s1._row].GetComponent<Selectable>()._suit = null;
-        }
-        else if (s1._top)
-        {
-            _deckManager._topPos[s1._row].GetComponent<Selectable>()._value = s1._value - 1;
-        }
-        else
-        {
-            _deckManager._bottoms[s1._row].Remove(_slot1.name);
-        }
+            if (s1._inDeckPile)
+            {
+                _deckManager._tripsOnDisplay.Remove(_slot1.name);
+            }
+            else if (s1._top && s2._top && s1._value == 1)
+            {
+                _deckManager._topPos[s1._row].GetComponent<Selectable>()._value = 0;
+                _deckManager._topPos[s1._row].GetComponent<Selectable>()._suit = null;
+            }
+            else if (s1._top)
+            {
+                _deckManager._topPos[s1._row].GetComponent<Selectable>()._value = s1._value - 1;
+            }
+            else
+            {
+                _deckManager._bottoms[s1._row].Remove(_slot1.name);
+            }
 
-        s1._inDeckPile = false;
-        s1._row = s2._row;
+            s1._inDeckPile = false;
+            s1._row = s2._row;
 
-        if (s2._top)
-        {
-            _deckManager._topPos[s1._row].GetComponent<Selectable>()._value = s1._value;
-            _deckManager._topPos[s1._row].GetComponent<Selectable>()._suit = s1._suit;
-            s1._top = true;
-        }
-        else
-        {
-            s1._top = false;
-        }
+            if (s2._top)
+            {
+                _deckManager._topPos[s1._row].GetComponent<Selectable>()._value = s1._value;
+                _deckManager._topPos[s1._row].GetComponent<Selectable>()._suit = s1._suit;
+                s1._top = true;
+            }
+            else
+            {
+                s1._top = false;
+            }
 
-        _slot1 = this.gameObject;
+            _slot1 = this.gameObject;
     }
 
     bool Blocked(GameObject selected)

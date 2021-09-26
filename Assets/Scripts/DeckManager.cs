@@ -31,7 +31,7 @@ public class DeckManager : MonoBehaviour
     private int _deckLocation;
     private int _trips;
     private int _tripsRemainder;
-    public static int _levelSelector = 1;
+    public static int _levelSelector;
 
     void Start()
     {
