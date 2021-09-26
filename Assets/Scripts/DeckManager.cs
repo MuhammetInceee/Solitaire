@@ -31,7 +31,7 @@ public class DeckManager : MonoBehaviour
     private int _deckLocation;
     private int _trips;
     private int _tripsRemainder;
-    public int _levelSelector = 3; // Just for now 3, When i create start screen, it change for difficulty.
+    public static int _levelSelector;
 
     void Start()
     {
@@ -41,6 +41,10 @@ public class DeckManager : MonoBehaviour
 
     public void PlayCard()
     {
+        foreach(List<string> list in _bottoms)
+        {
+            list.Clear();
+        }
         deck = GenerateDeck();
         Shuffle(deck);
         SolitaireSort();
@@ -132,7 +136,7 @@ public class DeckManager : MonoBehaviour
                 myTrips.Add(deck[j + modifier]);
             }
             _deckTrips.Add(myTrips);
-            modifier = modifier + _levelSelector;
+            modifier += _levelSelector;
         }
         if (_tripsRemainder != 0)
         {
