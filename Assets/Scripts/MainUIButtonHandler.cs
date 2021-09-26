@@ -10,6 +10,7 @@ public class MainUIButtonHandler : MonoBehaviour
     [SerializeField] private GameObject _gameplayButtons;
     public void RestartGame()
     {
+        Counter._score = 0;
         SceneManager.LoadScene(1);
     }
 
