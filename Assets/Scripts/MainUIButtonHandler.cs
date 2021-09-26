@@ -35,5 +35,7 @@ public class MainUIButtonHandler : MonoBehaviour
     public void MainMenu()
     {
         SceneManager.LoadScene(0);
+        Counter._score = 0;
+        Counter._isPaused = false;
     }
 }
