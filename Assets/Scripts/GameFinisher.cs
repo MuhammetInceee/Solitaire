@@ -6,11 +6,13 @@ public class GameFinisher : MonoBehaviour
 {
     public Selectable[] topStacks;
 
+    [SerializeField] private GameObject _gameEndedScreen;
+
     void Update()
     {
         if (HasWon())
         {
-
+            _gameEndedScreen.SetActive(true);
         }
     }
     public bool HasWon()

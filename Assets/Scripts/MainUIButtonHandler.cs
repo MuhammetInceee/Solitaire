@@ -5,20 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class MainUIButtonHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    [SerializeField] private GameObject _gameEnded;
     public void RestartGame()
     {
         SceneManager.LoadScene(1);
     }
+
+    public void PlayAgain()
+    {
+        _gameEnded.SetActive(false);
+        SceneManager.LoadScene(1);
+    }
+
 }
