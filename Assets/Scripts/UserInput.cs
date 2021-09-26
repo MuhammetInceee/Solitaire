@@ -210,6 +210,18 @@ public class UserInput : MonoBehaviour
 
     void Stack(GameObject selected)
     {
+        if(DeckManager._levelSelector == 1)
+        {
+            Counter._score += 2;
+        }
+        else if(DeckManager._levelSelector == 2)
+        {
+            Counter._score += 5;
+        }
+        else if(DeckManager._levelSelector == 3)
+        {
+            Counter._score += 10;
+        }
         Selectable s1 = _slot1.GetComponent<Selectable>();
         Selectable s2 = selected.GetComponent<Selectable>();
         float yOffset = 0.3f;
