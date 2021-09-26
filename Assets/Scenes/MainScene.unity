@@ -1314,7 +1314,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a84e44604cbe0a4f8aefcc156d8bd79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topStacks: []
+  topStacks:
+  - {fileID: 775641608}
+  - {fileID: 1406028136}
+  - {fileID: 85261718}
+  - {fileID: 1858240216}
   _gameEndedScreen: {fileID: 1754341197}
 --- !u!1 &775641603
 GameObject:
