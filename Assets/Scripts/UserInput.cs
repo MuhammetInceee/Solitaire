@@ -71,14 +71,11 @@ public class UserInput : MonoBehaviour
 
     void Deck()
     {
-        print("Click Deck");
         _deckManager.DealFromDeck();
         _slot1 = this.gameObject;
     }
     void Card(GameObject selected)
     {
-        print("Click Card");
-
         if (!selected.GetComponent<Selectable>().faceUp)
         {
             if (!Blocked(selected))
@@ -135,8 +132,6 @@ public class UserInput : MonoBehaviour
     }
     void Top(GameObject selected)
     {
-        print("Click Top");
-
         if (_slot1.CompareTag("Card"))
         {
             if(_slot1.GetComponent<Selectable>()._value == 1)
@@ -147,7 +142,6 @@ public class UserInput : MonoBehaviour
     }
     void Bottom(GameObject selected)
     {
-        print("Click Bottom");
         if (_slot1.CompareTag("Card"))
         {
             if(_slot1.GetComponent<Selectable>()._value == 13)
@@ -197,12 +191,10 @@ public class UserInput : MonoBehaviour
 
                     if (card1Red == card2Red)
                     {
-                        print("Not Stackable");
                         return false;
                     }
                     else
                     {
-                        print("Stackable");
                         return true;
                     }
                 }
@@ -283,7 +275,6 @@ public class UserInput : MonoBehaviour
             }
             else
             {
-                print(s2.name + " is blocked by " + _deckManager._tripsOnDisplay.Last());
                 return true;
             }
         }
@@ -304,7 +295,6 @@ public class UserInput : MonoBehaviour
     {
         if(_timer < _doubleClickTime && _clickCount == 2)
         {
-            print("Double Click");
             return true;
         }
         else
